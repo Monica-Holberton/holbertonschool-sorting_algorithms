@@ -1,5 +1,5 @@
 # holbertonschool-sorting_algorithms
-Sorting Algorithms &amp; Big O
+Sorting Algorithms & Big O
 
 Description
 This project covers a variety of sorting algorithms implemented in C. Each sorting algorithm is tested to demonstrate how it behaves in terms of time complexity and efficiency. The goal is to learn the implementation of sorting algorithms and analyze their performance in terms of Big O notation.
