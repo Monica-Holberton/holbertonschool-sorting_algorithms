@@ -1,63 +1,54 @@
 #include "sort.h"
-#include <stdio.h>
 
 /**
-* print_list - Prints a doubly linked list
-* @list: Pointer to the head of the list
-*/
-void print_list(const listint_t *list)
-{
-int first = 1;
-
-while (list)
-{
-if (!first)
-printf(", ");
-printf("%d", list->n);
-first = 0;
-list = list->next;
-}
-printf("\n");
-}
-
-/**
-* insertion_sort_list - Sorts a doubly linked list using Insertion Sort
-* @list: Double pointer to the head of the list
+* insertion_sort_list - Sorts a doubly linked list of integers
+* using the Insertion sort algorithm
+* @list: Double pointer to the head of the doubly linked list
 */
 void insertion_sort_list(listint_t **list)
 {
-listint_t *current, *tmp;
+listint_t *current, *insert, *tmp;
 
+/* Check if the list is valid and contains at least 2 elements */
 if (!list || !*list || !(*list)->next)
 return;
 
+/* Start from the second node */
 current = (*list)->next;
-
 while (current)
 {
-tmp = current;
-current = current->next;
+tmp = current->next; /* Save the next node to continue later */
+insert = current->prev;
 
-while (tmp->prev && tmp->n < tmp->prev->n)
+/* Move current node leftward as long as it's smaller than previous nodes */
+while (insert && current->n < insert->n)
 {
-listint_t *prev = tmp->prev;
+/* Re-link insert's previous node to current */
+if (insert->prev)
+insert->prev->next = current;
+current->prev = insert->prev;
 
-/* Swap tmp and prev */
-prev->next = tmp->next;
-if (tmp->next)
-tmp->next->prev = prev;
+/* Re-link current's next node to insert */
+insert->next = current->next;
+if (current->next)
+current->next->prev = insert;
 
-tmp->prev = prev->prev;
-tmp->next = prev;
+/* Link current and insert */
+current->next = insert;
+insert->prev = current;
 
-if (prev->prev)
-prev->prev->next = tmp;
-else
-*list = tmp;
+/* Update head of the list */
+if (!current->prev)
+*list = current;
 
-prev->prev = tmp;
+/* Update insert pointer for next comparison */
+insert = current->prev;
 
+/* Print the list after every swap */
 print_list(*list);
 }
+
+/* Move to the next node in the list */
+current = tmp;
 }
 }
