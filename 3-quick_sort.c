@@ -63,7 +63,7 @@ return (i + 1);
 * @low: Starting index of the current subarray
 * @high: Ending index of the current subarray
 * @size: Size of the array (for printing)
-*
+* pivot_index = splits the array into two parts for recursive sorting
 * Description: Applies recursive Quick sort on subarrays.
 */
 void quick_sort_recursive(int *array, int low, int high, size_t size)
